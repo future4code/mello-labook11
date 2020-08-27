@@ -11,7 +11,7 @@ export class Authenticator {
       {expiresIn: Authenticator.getExpiresIn()}
     )
   }
-  public verify(token: string): AuthenticationData {
+  public getData(token: string): AuthenticationData {
     const data = jwt.verify(
       token,
       process.env.JWT_KEY as string
