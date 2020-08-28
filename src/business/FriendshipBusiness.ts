@@ -21,9 +21,8 @@ export class FriendShipBusiness {
       );
     }
 
-    // Validação se já não existe relação de amizade entre os dois usuários
     const usersRelationsDatabase = new UsersRelationsDatabase();
-    const previousFriendship = usersRelationsDatabase.getUserRelation(
+    const previousFriendship = await usersRelationsDatabase.getUserRelation(
       userId,
       userToBefriend
     );
@@ -41,6 +40,41 @@ export class FriendShipBusiness {
       );
     }
 
+    if (userId === userToBefriend) {
+      throw new Error("Não é possível enviar a sim mesmo um pedido de amiade");
+    }
+
     await usersRelationsDatabase.befriendUser(userId, userToBefriend);
+  }
+
+  public async removeFriendship(
+    userId: string,
+    userToUnfriend: string
+  ): Promise<void> {
+    if (!userId) {
+      throw new Error("Não foi possível remover a amizde, insira um id válido");
+    }
+
+    if (!userToUnfriend) {
+      throw new Error(
+        "Não foi possível enviar o pedido de remover amizade, erro ao processar id de usuário da remoção de amizade"
+      );
+    }
+
+    const usersRelationsDatabase = new UsersRelationsDatabase();
+    const previousFriendship = await usersRelationsDatabase.getUserRelation(
+      userId,
+      userToUnfriend
+    );
+
+    if (!previousFriendship) {
+      throw new Error("Usuários já não são amigos");
+    }
+
+    if (userId === userToUnfriend) {
+      throw new Error("Não é possível este pedido a si mesmo");
+    }
+
+    await usersRelationsDatabase.removeFriendship(userId, userToUnfriend);
   }
 }
