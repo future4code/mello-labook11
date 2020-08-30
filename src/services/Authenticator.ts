@@ -6,8 +6,8 @@ interface AuthenticationData {
 
 export  class Authenticator {
 
-  private static getExpiresIn(): number {
-    return Number(process.env.ACCESS_TOKEN_EXPIRES_IN);
+  private static getExpiresIn(): string {
+    return process.env.ACCESS_TOKEN_EXPIRES_IN!;
   }
   public generateToken(data: AuthenticationData): string {
     return jwt.sign(
