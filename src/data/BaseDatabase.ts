@@ -24,4 +24,4 @@ export abstract class BaseDatabase {
       BaseDatabase.connection = null;
     }
   }
-}
+} 

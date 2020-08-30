@@ -35,4 +35,16 @@ export class UserDatabase extends BaseDatabase {
 
 		return result[0];
 	}
+
+	public async getFeed(userId: string): Promise<any>{
+		const result = await this.getConnection()
+		.raw(`
+			SELECT name, friend_id, creator_id, description, photo_url 
+			from '${UserDatabase.TABLE_NAME}' 
+			JOIN Posts 
+			where creator_id = friend_id
+		 `);
+		 
+		 return result[0][0];
+	}
 }

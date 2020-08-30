@@ -1,6 +1,11 @@
 import * as jwt from 'jsonwebtoken';
 
-export class Authenticator {
+interface AuthenticationData {
+  id: string
+}
+
+export  class Authenticator {
+
   private static getExpiresIn(): number {
     return Number(process.env.ACCESS_TOKEN_EXPIRES_IN);
   }
@@ -20,8 +25,4 @@ export class Authenticator {
       id: data.id
     }
   }
-}
-
-interface AuthenticationData {
-  id: string
 }
