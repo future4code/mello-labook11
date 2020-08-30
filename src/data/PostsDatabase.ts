@@ -16,4 +16,14 @@ export class PostsDatabase extends BaseDatabase {
       .insert({ id, photo_url, description, creation_date, type, creator_id })
       .into(PostsDatabase.TABLE_NAME);
   }
+
+  public async getTypeFeed(type: string) : Promise<any> {
+    const result = await this.getConnection()
+    .raw(
+      `select name, creator_id, description, photo_url, creation_date, type from
+       Users JOIN '${PostsDatabase.TABLE_NAME}' 
+       where type = "${type}" order by creation_date ASC`
+    )
+    return result[0][0];
+  }
 }
