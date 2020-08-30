@@ -11,7 +11,7 @@ export class PostsBusiness {
     type: string,
     creator_id: string
   ): Promise<void> {
-    if (!photo_url || !description || !creationDate || !type || creator_id) {
+    if (!photo_url || !description || !creationDate || !type || !creator_id) {
       throw new Error("Confira os dados do post!");
     }
 
